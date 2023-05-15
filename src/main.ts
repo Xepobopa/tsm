@@ -4,6 +4,7 @@ import {ValidationPipe} from "@nestjs/common";
 import * as cookieParser from "cookie-parser";
 import * as mongoose from "mongoose";
 import {ConfigService} from "@nestjs/config";
+import {setupSwagger} from "./util";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -12,6 +13,11 @@ async function bootstrap() {
     mongoose.pluralize(null);
     app.useGlobalPipes(new ValidationPipe());
     app.use(cookieParser());
+
+    if (config.get<string>('NODE_ENV') === "DEVELOPMENT") {
+        setupSwagger(app);
+        console.log(`Swagger - http://localhost:5000/documentation`)
+    }
 
     const server = await app.listen(config.get<number>('PORT'), () => console.log('Host on http://localhost:5000'));
 
