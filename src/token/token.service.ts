@@ -24,11 +24,9 @@ export class TokenService {
         }
     }
 
-    // we don't use 'orFail' function, because we check for null
-    // in the AuthService.refresh() func to throw UnauthorizedException()
     async findToken(token: string) {
         return this.tokenModel.findOne({ refresh_token: token })
-            //.orFail(new BadRequestException(`Can't find token in db'${token}'`));
+            .orFail(new UnauthorizedException());
     }
 
     generateToken(payload: Partial<UserDto>) {
