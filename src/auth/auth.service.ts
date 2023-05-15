@@ -1,16 +1,15 @@
-import {BadRequestException, Injectable, UnauthorizedException} from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-import { Request, Response } from "express";
-import { CreateUserDto } from "../dto/create-user.dto";
-import { UsersService } from "../user/users.service";
-import { TokenDocument } from "../schema/token.schema";
-import { UserDocument } from "../schema/user.schema";
-import { TokenService } from "../token/token.service";
+import {Injectable, UnauthorizedException} from '@nestjs/common';
+import {Request} from "express";
+import {CreateUserDto} from "../dto/create-user.dto";
+import {UserService} from "../user/user.service";
+import {TokenDocument} from "../schema/token.schema";
+import {UserDocument} from "../schema/user.schema";
+import {TokenService} from "../token/token.service";
 
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly userService: UsersService,
+        private readonly userService: UserService,
         private readonly tokenService: TokenService,
     ) {
     }
