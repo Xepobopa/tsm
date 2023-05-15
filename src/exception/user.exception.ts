@@ -1,7 +1,7 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import {HttpException, HttpStatus} from '@nestjs/common';
 
-export class UserNotExistException extends HttpException {
-  constructor(description?: string) {
-    super('User does\'t exist in database!', HttpStatus.BAD_REQUEST, {description});
-  }
+export class UserException extends HttpException {
+    constructor(dataNotFound?: Object) {
+        super(`[Database Error] Can't find user in db. Provided data: ${JSON.stringify(dataNotFound)}`, HttpStatus.NOT_FOUND);
+    }
 }
